@@ -1601,8 +1601,8 @@ function getTransactionGasFees(network, isPriority = false) {
 	} else if (network.gasMode === GAS_MODE.LEGACY) {
 		
 		return {
-			maxPriorityFeePerGas: Web3.utils.toHex(7*1e9),
-			maxFeePerGas:  Web3.utils.toHex(15*1e9),
+			maxPriorityFeePerGas: Web3.utils.toHex(8*1e9),
+			maxFeePerGas:  Web3.utils.toHex(16*1e9),
 		};
 // 		const priorityMultiplier = isPriority ? 125 : 120;
 // 		return {
