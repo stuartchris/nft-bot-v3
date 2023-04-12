@@ -395,7 +395,8 @@ async function startFetchingLatestGasPrices() {
 			if (NETWORK.gasMode === GAS_MODE.EIP1559) {
 				// TODO: Add support for EIP1159 provider fetching here
 			} else if (NETWORK.gasMode === GAS_MODE.LEGACY) {
-				const gasPrice = await currentlySelectedWeb3Client.eth.getGasPrice();
+				// const gasPrice = await currentlySelectedWeb3Client.eth.getGasPrice();
+				const gasPrice = process.env.GAS_PRICE;
 				gasPriceBn = new Web3.utils.BN(gasPrice);
 			}
 		}
