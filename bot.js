@@ -279,10 +279,12 @@ function createWeb3Client(providerIndex, providerUrl) {
 			prevL1BlockFetchTimeMs = Date.now();
 			try {
 				const block = await web3Client.eth.getBlock(newBlockNumber);
-				const _currentL1BlockNumber = Web3.utils.hexToNumber(block.l1BlockNumber);
-				if (currentL1Blocks[providerIndex] !== _currentL1BlockNumber) {
-					currentL1Blocks[providerIndex] = _currentL1BlockNumber;
-					appLogger.debug(`New L1 block received ${_currentL1BlockNumber} from provider ${providerUrl}...`);
+				if (block !== null) {
+					const _currentL1BlockNumber = Web3.utils.hexToNumber(block.l1BlockNumber);
+					if (currentL1Blocks[providerIndex] !== _currentL1BlockNumber) {
+						currentL1Blocks[providerIndex] = _currentL1BlockNumber;
+						appLogger.debug(`New L1 block received ${_currentL1BlockNumber} from provider ${providerUrl}...`);
+					}
 				}
 			} catch (error) {
 				appLogger.error(`An error occurred attempting to fetch L1 block number for block ${newBlockNumber}`, { blockNumber: newBlockNumber, error });
