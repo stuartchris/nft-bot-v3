@@ -397,10 +397,7 @@ async function startFetchingLatestGasPrices() {
 			if (NETWORK.gasMode === GAS_MODE.EIP1559) {
 				// TODO: Add support for EIP1159 provider fetching here
 			} else if (NETWORK.gasMode === GAS_MODE.LEGACY) {
-				let gasPrice = await currentlySelectedWeb3Client.eth.getGasPrice();
-				gasPrice = parseInt(gasPrice) * 4
-				console.log(`gas price: ${gasPrice}`)
-				// const gasPrice = process.env.GAS_PRICE;
+				let gasPrice = await currentlySelectedWeb3Client.eth.getGasPrice();				
 				gasPriceBn = new Web3.utils.BN(gasPrice);
 			}
 		}
@@ -1602,11 +1599,15 @@ function getTransactionGasFees(network, isPriority = false) {
 			maxFeePerGas: isPriority ? MAX_FEE_PER_GAS_WEI_HEX: Web3.utils.toHex(standardTransactionGasFees.maxFee*1e9),
 		};
 	} else if (network.gasMode === GAS_MODE.LEGACY) {
-		const priorityMultiplier = isPriority ? 125 : 120;
-
+		
 		return {
-			gasPrice: Web3.utils.toHex(gasPriceBn.mul(Web3.utils.toBN(priorityMultiplier)).div(Web3.utils.toBN(100)))
+			maxPriorityFeePerGas: Web3.utils.toHex(7*1e9),
+			maxFeePerGas:  Web3.utils.toHex(15*1e9),
 		};
+// 		const priorityMultiplier = isPriority ? 125 : 120;
+// 		return {
+// 			gasPrice: Web3.utils.toHex(gasPriceBn.mul(Web3.utils.toBN(priorityMultiplier)).div(Web3.utils.toBN(100)))
+// 		};
 	}
 
 	throw new Error(`Unsupported gas mode: ${network?.gasMode}`);
