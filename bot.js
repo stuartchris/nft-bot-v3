@@ -396,8 +396,8 @@ async function startFetchingLatestGasPrices() {
 				// TODO: Add support for EIP1159 provider fetching here
 			} else if (NETWORK.gasMode === GAS_MODE.LEGACY) {
 				let gasPrice = await currentlySelectedWeb3Client.eth.getGasPrice();
-				gasPrice = gasPrice * 10
-				console.log(`gas price: ${gasPrice}`)
+				// gasPrice = gasPrice * 10
+				// console.log(`gas price: ${gasPrice}`)
 				// const gasPrice = process.env.GAS_PRICE;
 				gasPriceBn = new Web3.utils.BN(gasPrice);
 			}
